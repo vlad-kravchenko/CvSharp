@@ -1,0 +1,155 @@
+﻿<Window x:Class="LeafArea.Processing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeafArea"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Title="Processing" Height="800" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Width="115" Name="GrayScale" Margin="5" Click="GrayScale_Click">Gray scale</Button>
+            <Button Width="115" Name="Apply" Margin="5" Click="Apply_Click">Apply</Button>
+            <Button Width="115" Name="Reset" Margin="5" Click="Reset_Click">Reset</Button>
+        </StackPanel>
+
+        <CheckBox Name="InteractiveMode" Grid.Row="1" Margin="5">Interactive mode</CheckBox>
+
+        <GroupBox Header="Binarization" Grid.Row="2" Margin="5">
+            <Grid Height="80" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Slider Margin="5" Name="BinSlider1" Grid.Column="0" Grid.Row="0" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="255" Height="50" SmallChange="1" LargeChange="10" Value="0" ValueChanged="BinSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding ElementName=BinSlider1, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BinSlider2" Grid.Column="0" Grid.Row="1" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="255" Height="50" SmallChange="1" LargeChange="10" Value="255" ValueChanged="BinSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding ElementName=BinSlider2, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Smooth" Grid.Row="3" Margin="5">
+            <Grid Height="40" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Slider Margin="5" Name="SmoothSlider" Grid.Column="0" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="99" Height="50" SmallChange="1" LargeChange="10" Value="0" ValueChanged="SmoothSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Margin="5" Text="{Binding ElementName=SmoothSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Canny contours" Grid.Row="4" Margin="5">
+            <Grid Height="100" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Slider Margin="5" Name="CannySlider1" Grid.Column="0" Grid.Row="0" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="100" Height="50" SmallChange="1" LargeChange="10" Value="0" ValueChanged="CannySlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding ElementName=CannySlider1, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="CannySlider2" Grid.Column="0" Grid.Row="1" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="100" Height="50" SmallChange="1" LargeChange="10" Value="100" ValueChanged="CannySlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding ElementName=CannySlider2, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="CannySlider3" Grid.Column="0" Grid.Row="2" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="3" Height="50" SmallChange="1" LargeChange="10" Value="1" ValueChanged="CannySlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="2" Margin="5" Text="{Binding ElementName=CannySlider3, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Adaptive threshold" Grid.Row="5" Margin="5">
+            <Grid Height="80" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Slider Margin="5" Name="AdaptiveSlider1" Grid.Column="0" Grid.Row="0" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="255" Height="50" SmallChange="1" LargeChange="10" Value="0" ValueChanged="AdaptiveSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding ElementName=AdaptiveSlider1, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="AdaptiveSlider2" Grid.Column="0" Grid.Row="1" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="255" Height="50" SmallChange="1" LargeChange="10" Value="101" ValueChanged="AdaptiveSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding ElementName=AdaptiveSlider2, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Brightness" Grid.Row="6" Margin="5">
+            <Grid Height="270" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Slider Margin="5" Name="BrightnessSlider1" Grid.Column="0" Grid.Row="0" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding ElementName=BrightnessSlider1, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider2" Grid.Column="0" Grid.Row="1" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding ElementName=BrightnessSlider2, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider3" Grid.Column="0" Grid.Row="2" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="2" Margin="5" Text="{Binding ElementName=BrightnessSlider3, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider4" Grid.Column="0" Grid.Row="3" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="3" Margin="5" Text="{Binding ElementName=BrightnessSlider4, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider5" Grid.Column="0" Grid.Row="4" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="0" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="4" Margin="5" Text="{Binding ElementName=BrightnessSlider5, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider6" Grid.Column="0" Grid.Row="5" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="5" Margin="5" Text="{Binding ElementName=BrightnessSlider6, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider7" Grid.Column="0" Grid.Row="6" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="6" Margin="5" Text="{Binding ElementName=BrightnessSlider7, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider8" Grid.Column="0" Grid.Row="7" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="7" Margin="5" Text="{Binding ElementName=BrightnessSlider8, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider Margin="5" Name="BrightnessSlider9" Grid.Column="0" Grid.Row="8" Minimum="-10" IsSnapToTickEnabled="True" TickFrequency="1"
+                            Maximum="40" Height="50" SmallChange="1" LargeChange="10" Value="2" ValueChanged="BrightnessSlider_ValueChanged"></Slider>
+                <TextBlock Grid.Column="1" Grid.Row="8" Margin="5" Text="{Binding ElementName=BrightnessSlider9, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
