@@ -10,6 +10,8 @@
 
 4) Sharedlogic. Слой, связывающий три вышеперечисленных проекта с библиотекой OpenCVSharp. Ввиду повторного использования функционала, было решено вынести всё это в отдельную библиотеку.
 
+Внимание! Ввиду особенностей библиотеки, необходимо вручную скопировать папки x86 и x64 из директории packages\OpenCvSharp-AnyCPU.2.4.10.20170306\NativeDlls в директорию bin/Debug каждого проекта!
+
 ---------------------------------EN-----------------------------------
 
 This solution contains 4 projects - three independent applications and a layer connecting each of them with the library OpenCVSharp v2.4.
@@ -21,3 +23,5 @@ This solution contains 4 projects - three independent applications and a layer c
 3) OpenMaps. An application for constructing a UAV flight route based on images from its board and a general terrain map. The input data is a general map of the area and a set of images named in the order of creation (Photo1, Photo2 ... PhotoN). At the exit, we get the rendered route and (if necessary and if available time of creating of each single photo) the UAV flight speed and the terrain coverage with images from a lower height. Customization of rendering layers is available. Due to the high demands on the algorithm used (ASIFT), the program runs in the background (1 thread). Master's degree.
 
 4) SharedLogic. A layer linking the three above projects with the library OpenCVSharp. Due to the reuse of functionality, it was decided to put all this in a separate library.
+
+Attention! Due to the nature of the library, you must manually copy the x86 and x64 folders from the packages\OpenCvSharp-AnyCPU.2.4.10.20170306\NativeDlls directory to the "bin/Debug" directory of each project!
